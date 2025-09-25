@@ -38,17 +38,26 @@ export function Offices({
   return (
     <ul role="list" {...props}>
       <li>
-        <Office name="Zürich" invert={invert}>
-          Bahnhofstrasse 100
+        <Office name="Rotkreuz" invert={invert}>
+          Maxsoft AG
           <br />
-          8001 Zürich, Switzerland
+          Birkenstrasse 49
+          <br />
+          6343 Rotkreuz, Schweiz
+        </Office>
+      </li>
+      <li>
+        <Office name="Chennai" invert={invert}>
+          Maxapp
+          <br />
+          123A Triplicane High Road
+          <br />
+          Triplicane, Tamil Nadu 600 005
         </Office>
       </li>
       <li>
         <Office name="Contact" invert={invert}>
-          hello@maxappzrh.com
-          <br />
-          +41 XX XXX XX XX
+          info@maxappzrh.com
         </Office>
       </li>
     </ul>

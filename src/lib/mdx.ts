@@ -36,12 +36,12 @@ async function loadEntries<T extends { date: string }>(
 ): Promise<Array<MDXEntry<T>>> {
   return (
     await Promise.all(
-      (await glob('**/page.mdx', { cwd: `src/app/${directory}` })).map(
+      (await glob('**/page.mdx', { cwd: `src/app/[locale]/${directory}` })).map(
         async (filename) => {
           // Dynamically import the MDX file to access its metadata
-          const metadata = (await import(`../app/${directory}/${filename}`))[
-            metaName
-          ] as T
+          const metadata = (
+            await import(`../app/[locale]/${directory}/${filename}`)
+          )[metaName] as T
           return {
             ...metadata,
             metadata,

@@ -7,7 +7,6 @@ import { routing } from '@/i18n/routing'
 import clsx from 'clsx'
 import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
 
-import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { CookieBanner } from '@/components/CookieBanner'
 import { Footer } from '@/components/Footer'
@@ -87,7 +86,7 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center space-x-2 rounded-md px-3 py-1 text-sm transition-colors ${
+        className={`flex w-[160px] items-center justify-between rounded-md px-3 py-1 text-sm transition-colors ${
           invert
             ? 'bg-white/20 text-white hover:bg-white/30'
             : 'border border-gray-200 bg-white/10 text-gray-700 hover:bg-white/20'
@@ -95,8 +94,10 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span className="text-base">{currentLocale.flag}</span>
-        <span className="hidden sm:inline">{currentLocale.name}</span>
+        <div className="flex items-center space-x-2">
+          <span className="text-base">{currentLocale.flag}</span>
+          <span className="hidden sm:inline">{currentLocale.name}</span>
+        </div>
         <svg
           className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
@@ -114,7 +115,7 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
 
       {isOpen && (
         <div
-          className={`absolute top-full right-0 mt-1 min-w-[160px] rounded-lg border shadow-xl backdrop-blur-sm ${
+          className={`absolute top-full right-0 z-50 mt-1 w-[160px] rounded-lg border shadow-xl backdrop-blur-sm ${
             invert
               ? 'border-white/20 bg-neutral-900/95'
               : 'border-gray-200 bg-white/95'
@@ -189,9 +190,16 @@ function Header({
         </Link>
         <div className="flex items-center gap-x-4">
           <LanguageSwitcher invert={invert} />
-          <Button href="/contact" invert={invert}>
-            {t('contactUs')}
-          </Button>
+          <Link
+            href="/contact"
+            className={`inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+              invert
+                ? 'bg-white text-neutral-950 hover:bg-neutral-200'
+                : 'bg-neutral-950 text-white hover:bg-neutral-800'
+            }`}
+          >
+            <span className="relative top-px">{t('contactUs')}</span>
+          </Link>
           <button
             ref={toggleRef}
             type="button"
