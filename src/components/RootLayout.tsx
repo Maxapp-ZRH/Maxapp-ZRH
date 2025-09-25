@@ -51,7 +51,10 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
   // Close dropdown when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
@@ -111,7 +114,7 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
 
       {isOpen && (
         <div
-          className={`absolute right-0 top-full mt-1 min-w-[160px] rounded-md border shadow-lg ${
+          className={`absolute top-full right-0 mt-1 min-w-[160px] rounded-md border shadow-lg ${
             invert
               ? 'border-white/20 bg-neutral-900'
               : 'border-gray-200 bg-white'
