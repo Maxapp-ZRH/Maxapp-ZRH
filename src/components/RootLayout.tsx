@@ -40,35 +40,119 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleLocaleChange = (newLocale: string) => {
     router.replace(pathname, { locale: newLocale })
+    setIsOpen(false)
   }
 
-  const localeNames = {
-    en: 'English',
-    'de-CH': 'Deutsch (CH)',
+  // Close dropdown when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('keydown', handleKeyDown)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
+
+  const localeData = {
+    en: { name: 'English', flag: '🇺🇸' },
+    'de-CH': { name: 'Deutsch (CH)', flag: '🇨🇭' },
   }
+
+  const currentLocale = localeData[locale as keyof typeof localeData]
 
   return (
-    <div className="flex items-center space-x-2">
-      {routing.locales.map((loc) => (
-        <button
-          key={loc}
-          onClick={() => handleLocaleChange(loc)}
-          className={`rounded-md px-3 py-1 text-sm transition-colors ${
-            locale === loc
-              ? invert
-                ? 'bg-white text-black'
-                : 'bg-blue-600 text-white'
-              : invert
-                ? 'bg-white/20 text-white hover:bg-white/30'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center space-x-2 rounded-md px-3 py-1 text-sm transition-colors ${
+          invert
+            ? 'bg-white/20 text-white hover:bg-white/30'
+            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+        }`}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        <span className="text-base">{currentLocale.flag}</span>
+        <span className="hidden sm:inline">{currentLocale.name}</span>
+        <svg
+          className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div
+          className={`absolute right-0 top-full mt-1 min-w-[160px] rounded-md border shadow-lg ${
+            invert
+              ? 'border-white/20 bg-neutral-900'
+              : 'border-gray-200 bg-white'
           }`}
         >
-          {localeNames[loc as keyof typeof localeNames]}
-        </button>
-      ))}
+          {routing.locales.map((loc) => {
+            const localeInfo = localeData[loc as keyof typeof localeData]
+            return (
+              <button
+                key={loc}
+                onClick={() => handleLocaleChange(loc)}
+                className={`flex w-full items-center space-x-3 px-4 py-2 text-left text-sm transition-colors first:rounded-t-md last:rounded-b-md ${
+                  locale === loc
+                    ? invert
+                      ? 'bg-white/20 text-white'
+                      : 'bg-blue-50 text-blue-600'
+                    : invert
+                      ? 'text-white hover:bg-white/10'
+                      : 'text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                <span className="text-base">{localeInfo.flag}</span>
+                <span>{localeInfo.name}</span>
+                {locale === loc && (
+                  <svg
+                    className="ml-auto h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
