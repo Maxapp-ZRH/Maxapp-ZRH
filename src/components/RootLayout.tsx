@@ -90,7 +90,7 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
         className={`flex items-center space-x-2 rounded-md px-3 py-1 text-sm transition-colors ${
           invert
             ? 'bg-white/20 text-white hover:bg-white/30'
-            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            : 'bg-white/10 text-gray-700 hover:bg-white/20 border border-gray-200'
         }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -114,10 +114,10 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
 
       {isOpen && (
         <div
-          className={`absolute top-full right-0 mt-1 min-w-[160px] rounded-md border shadow-lg ${
+          className={`absolute top-full right-0 mt-1 min-w-[160px] rounded-lg border shadow-xl backdrop-blur-sm ${
             invert
-              ? 'border-white/20 bg-neutral-900'
-              : 'border-gray-200 bg-white'
+              ? 'border-white/20 bg-neutral-900/95'
+              : 'border-gray-200 bg-white/95'
           }`}
         >
           {routing.locales.map((loc) => {
@@ -126,7 +126,7 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
               <button
                 key={loc}
                 onClick={() => handleLocaleChange(loc)}
-                className={`flex w-full items-center space-x-3 px-4 py-2 text-left text-sm transition-colors first:rounded-t-md last:rounded-b-md ${
+                className={`flex w-full items-center space-x-3 px-4 py-2.5 text-left text-sm transition-colors first:rounded-t-lg last:rounded-b-lg ${
                   locale === loc
                     ? invert
                       ? 'bg-white/20 text-white'
