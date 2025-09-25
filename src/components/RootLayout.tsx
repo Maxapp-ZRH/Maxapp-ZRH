@@ -90,7 +90,7 @@ function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
         className={`flex items-center space-x-2 rounded-md px-3 py-1 text-sm transition-colors ${
           invert
             ? 'bg-white/20 text-white hover:bg-white/30'
-            : 'bg-white/10 text-gray-700 hover:bg-white/20 border border-gray-200'
+            : 'border border-gray-200 bg-white/10 text-gray-700 hover:bg-white/20'
         }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
