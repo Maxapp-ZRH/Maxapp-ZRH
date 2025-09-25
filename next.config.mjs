@@ -1,4 +1,5 @@
 import createMDX from '@next/mdx'
+import createNextIntlPlugin from 'next-intl/plugin'
 import rehypeShiki from '@leafac/rehype-shiki'
 import { Parser } from 'acorn'
 import jsx from 'acorn-jsx'
@@ -10,6 +11,8 @@ import { remarkRehypeWrap } from 'remark-rehype-wrap'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import shiki from 'shiki'
 import { unifiedConditional } from 'unified-conditional'
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -79,5 +82,5 @@ export default async function config() {
     },
   })
 
-  return withMDX(nextConfig)
+  return withNextIntl(withMDX(nextConfig))
 }

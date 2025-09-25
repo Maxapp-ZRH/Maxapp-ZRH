@@ -1,36 +1,39 @@
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/routing'
 
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { Logo } from '@/components/Logo'
 import { socialMediaProfiles } from '@/components/SocialMedia'
 
-const navigation = [
-  {
-    title: 'Company',
-    links: [
-      { title: 'About', href: '/about' },
-      { title: 'Process', href: '/process' },
-      { title: 'Careers', href: '/careers' },
-      { title: 'Blog', href: '/blog' },
-      { title: 'Contact us', href: '/contact' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { title: 'Terms of Service', href: '/terms' },
-      { title: 'Privacy Policy', href: '/privacy' },
-      { title: 'Legal Information', href: '/legal' },
-    ],
-  },
-  {
-    title: 'Connect',
-    links: socialMediaProfiles,
-  },
-]
-
 function Navigation() {
+  const t = useTranslations('Navigation')
+
+  const navigation = [
+    {
+      title: 'Company',
+      links: [
+        { title: t('about'), href: '/about' },
+        { title: t('process'), href: '/process' },
+        { title: t('careers'), href: '/careers' },
+        { title: t('blog'), href: '/blog' },
+        { title: t('contact'), href: '/contact' },
+      ],
+    },
+    {
+      title: 'Legal',
+      links: [
+        { title: t('terms'), href: '/terms' },
+        { title: t('privacy'), href: '/privacy' },
+        { title: t('legal'), href: '/legal' },
+      ],
+    },
+    {
+      title: 'Connect',
+      links: socialMediaProfiles,
+    },
+  ]
+
   return (
     <nav>
       <ul role="list" className="grid grid-cols-1 gap-8 sm:grid-cols-3">
@@ -104,6 +107,8 @@ function NewsletterForm() {
 }
 
 export function Footer() {
+  const t = useTranslations('Footer')
+
   return (
     <Container as="footer" className="mt-24 w-full sm:mt-32 lg:mt-40">
       <FadeIn>
@@ -117,9 +122,7 @@ export function Footer() {
           <Link href="/" aria-label="Home">
             <Logo className="h-8" />
           </Link>
-          <p className="text-sm text-neutral-700">
-            © Maxapp ZRH. {new Date().getFullYear()}
-          </p>
+          <p className="text-sm text-neutral-700">{t('copyright')}</p>
         </div>
       </FadeIn>
     </Container>

@@ -1,7 +1,9 @@
 'use client'
 
 import { createContext, useEffect, useId, useRef, useState } from 'react'
-import Link from 'next/link'
+import { useTranslations, useLocale } from 'next-intl'
+import { Link, useRouter, usePathname } from '@/i18n/routing'
+import { routing } from '@/i18n/routing'
 import clsx from 'clsx'
 import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
 
@@ -10,6 +12,7 @@ import { Container } from '@/components/Container'
 import { CookieBanner } from '@/components/CookieBanner'
 import { Footer } from '@/components/Footer'
 import { GridPattern } from '@/components/GridPattern'
+// import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Logo, Logomark } from '@/components/Logo'
 import { Offices } from '@/components/Offices'
 import { SocialMedia } from '@/components/SocialMedia'
@@ -33,6 +36,43 @@ function MenuIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
+function LanguageSwitcher({ invert = false }: { invert?: boolean }) {
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleLocaleChange = (newLocale: string) => {
+    router.replace(pathname, { locale: newLocale })
+  }
+
+  const localeNames = {
+    en: 'English',
+    'de-CH': 'Deutsch (CH)',
+  }
+
+  return (
+    <div className="flex items-center space-x-2">
+      {routing.locales.map((loc) => (
+        <button
+          key={loc}
+          onClick={() => handleLocaleChange(loc)}
+          className={`rounded-md px-3 py-1 text-sm transition-colors ${
+            locale === loc
+              ? invert
+                ? 'bg-white text-black'
+                : 'bg-blue-600 text-white'
+              : invert
+                ? 'bg-white/20 text-white hover:bg-white/30'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
+        >
+          {localeNames[loc as keyof typeof localeNames]}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 function Header({
   panelId,
   icon: Icon,
@@ -48,6 +88,8 @@ function Header({
   toggleRef: React.RefObject<HTMLButtonElement | null>
   invert?: boolean
 }) {
+  const t = useTranslations('Common')
+
   return (
     <Container>
       <div className="flex items-center justify-between">
@@ -58,9 +100,10 @@ function Header({
             color={invert ? 'white' : 'blue'}
           />
         </Link>
-        <div className="flex items-center gap-x-8">
+        <div className="flex items-center gap-x-4">
+          <LanguageSwitcher invert={invert} />
           <Button href="/contact" invert={invert}>
-            Contact us
+            {t('contactUs')}
           </Button>
           <button
             ref={toggleRef}
@@ -125,30 +168,32 @@ function NavigationItem({
 }
 
 function Navigation({ onClose }: { onClose: () => void }) {
+  const t = useTranslations('Navigation')
+
   return (
     <nav className="mt-px font-display text-5xl font-medium tracking-tight text-white">
       <NavigationRow>
         <NavigationItem href="/work" onClose={onClose}>
-          Our Work
+          {t('work')}
         </NavigationItem>
         <NavigationItem href="/services" onClose={onClose}>
-          Services
+          {t('services')}
         </NavigationItem>
       </NavigationRow>
       <NavigationRow>
         <NavigationItem href="/team" onClose={onClose}>
-          Team
+          {t('team')}
         </NavigationItem>
         <NavigationItem href="/about" onClose={onClose}>
-          About Us
+          {t('about')}
         </NavigationItem>
       </NavigationRow>
       <NavigationRow>
         <NavigationItem href="/process" onClose={onClose}>
-          Our Process
+          {t('process')}
         </NavigationItem>
         <NavigationItem href="/blog" onClose={onClose}>
-          Blog
+          {t('blog')}
         </NavigationItem>
       </NavigationRow>
     </nav>

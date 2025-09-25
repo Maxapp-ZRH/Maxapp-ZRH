@@ -1,0 +1,31 @@
+{
+  "Navigation": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "blog": "Blog",
+    "careers": "Karriere",
+    "contact": "Kontakt",
+    "legal": "Rechtliches",
+    "privacy": "Datenschutz",
+    "process": "Prozess",
+    "services": "Dienstleistungen",
+    "team": "Team",
+    "terms": "AGB",
+    "work": "Projekte"
+  },
+  "Footer": {
+    "copyright": "© 2024 MaxApp Zürich. Alle Rechte vorbehalten.",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen"
+  },
+  "Common": {
+    "readMore": "Mehr lesen",
+    "learnMore": "Mehr erfahren",
+    "getStarted": "Loslegen",
+    "contactUs": "Kontaktieren Sie uns",
+    "viewAll": "Alle anzeigen",
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "notFound": "Seite nicht gefunden"
+  }
+}

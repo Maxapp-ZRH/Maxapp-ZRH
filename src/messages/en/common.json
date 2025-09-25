@@ -1,0 +1,31 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "careers": "Careers",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "process": "Process",
+    "services": "Services",
+    "team": "Team",
+    "terms": "Terms",
+    "work": "Work"
+  },
+  "Footer": {
+    "copyright": "© 2024 MaxApp Zurich. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "Common": {
+    "readMore": "Read more",
+    "learnMore": "Learn more",
+    "getStarted": "Get started",
+    "contactUs": "Contact us",
+    "viewAll": "View all",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found"
+  }
+}
